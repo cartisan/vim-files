@@ -113,15 +113,23 @@ map <A-l> :tabn<CR>
 nnoremap \ :noh<return>
 
 " solarized
-let g:solarized_termcolors=256
-set background=light
-colorscheme solarized
 
-" remove gvim widgets
-:set guioptions-=m  "remove menu bar
-:set guioptions-=T  "remove toolbar
-:set guioptions-=r  "remove right-hand scroll bar
-:set guioptions-=L  "remove left-hand scroll bar on vertical splits
+if has('gui_running') 
+  colorscheme solarized
+  set background=light
+  let g:solarized_termcolors=256
+
+  " remove gvim widgets
+  :set guioptions-=m  "remove menu bar
+  :set guioptions-=T  "remove toolbar
+  :set guioptions-=r  "remove right-hand scroll bar
+  :set guioptions-=L  "remove left-hand scroll bar on vertical splits
+ 
+else 
+  "no need for details since ConEmu takes care of solarized
+endif 
+
+
 
 " Use Leader+e to open NerdTree
 map <Leader>e :NERDTreeToggle<CR>
