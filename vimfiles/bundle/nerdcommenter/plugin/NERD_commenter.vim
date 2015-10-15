@@ -929,7 +929,7 @@ function s:CommentLinesToggle(forceNested, firstLine, lastLine)
                 let theLine = s:SwapOutterMultiPartDelimsForPlaceHolders(theLine)
             endif
 
-            let theLine = s:AddLeftDelim(s:Left({'space': 1}), theLine)
+            let theLine = s:AddLeftDelimAligned(s:Left({'space': 1}), theLine, 0)
             let theLine = s:AddRightDelim(s:Right({'space': 1}), theLine)
         endif
 
