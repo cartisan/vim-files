@@ -930,7 +930,7 @@ function s:CommentLinesToggle(forceNested, firstLine, lastLine)
             endif
 
             let theLine = s:AddLeftDelim(s:Left({'space': 1}), theLine)
-            let theLine = s:AddRightDelim(s:Right({'space': 1}), theLine)
+            let theLine = s:AddLeftDelimAligned(s:Left({'space': 1}), theLine, 0)
         endif
 
         " restore leading tabs if appropriate
