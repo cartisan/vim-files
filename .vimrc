@@ -131,6 +131,15 @@ endif
 
 autocmd BufRead *.py nmap <F5> :!python %<CR>
 
+" Use incsearch instead of normal search
+map /  <Plug>(incsearch-forward)
+map ?  <Plug>(incsearch-backward)
+map g/ <Plug>(incsearch-stay)
+
+" Start Tagbar
+nmap <F8> :TagbarToggle<CR>
+let g:tagbar_ctags_bin="~/bin/ctags"
+
 """"""""""""""
 " LATEX SETUP"
 """"""""""""""
