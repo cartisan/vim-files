@@ -6,8 +6,11 @@ call pathogen#infect()                      " load everyhting else
 call pathogen#helptags()                    " load plugin help files
 
 " syntastic
-let g:syntastic_check_on_open=1
 let g:syntastic_python_checkers=['flake8']
+let g:syntastic_mode_map = { 'mode': 'active'}
+let g:syntastic_aggregate_errors = 1
+let g:syntastic_enable_signs=1
+let g:syntastic_auto_loc_list=0
 
 
 " syntax highlighting
@@ -67,10 +70,6 @@ let mapleader=","
 
 command! W w !sudo tee % > /dev/null
 
-" Rope mapings
-map <leader>j :RopeGotoDefinition<CR>
-map <leader>r :RopeRename<CR>
-
 set backspace=indent,eol,start
 
 " ShowMarks
@@ -110,10 +109,10 @@ map <A-l> :tabn<CR>
 nnoremap \ :noh<return>
 
 " solarized
-se t_Co=256
-let g:solarized_termcolors=256
-set background=light
-colorscheme solarized
+"se t_Co=256
+"let g:solarized_termcolors=256
+"set background=light
+"colorscheme solarized
 
 " remove gvim widgets
 :set guioptions-=m  "remove menu bar
