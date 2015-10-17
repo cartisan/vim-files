@@ -70,10 +70,6 @@ let mapleader=","
 
 command! W w !sudo tee % > /dev/null
 
-" Rope mapings
-map <leader>j :RopeGotoDefinition<CR>
-map <leader>r :RopeRename<CR>
-
 set backspace=indent,eol,start
 
 " ShowMarks
@@ -144,6 +140,9 @@ autocmd BufRead *.py nmap <F5> :!python %<CR>
 map /  <Plug>(incsearch-forward)
 map ?  <Plug>(incsearch-backward)
 map g/ <Plug>(incsearch-stay)
+
+" Start Tagbar
+nmap <F8> :TagbarToggle<CR>
 
 
 """"""""""""""
