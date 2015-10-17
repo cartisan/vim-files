@@ -5,7 +5,7 @@ call pathogen#infect()                      " load everyhting else
 call pathogen#helptags()                    " load plugin help files
 
 " syntastic
-let g:syntastic_check_on_open=1
+"let g:syntastic_check_on_open=1
 let g:syntastic_python_checkers=['flake8']
 let g:syntastic_mode_map = { 'mode': 'active'}
 let g:syntastic_aggregate_errors = 1
