@@ -119,7 +119,7 @@ if has('gui_running')
   set background=light
   let g:solarized_termcolors=256
 
-  " remove gvim widgets
+" remove gvim widgets
   :set guioptions-=m  "remove menu bar
   :set guioptions-=T  "remove toolbar
   :set guioptions-=r  "remove right-hand scroll bar
@@ -128,8 +128,6 @@ if has('gui_running')
 else 
   "no need for details since ConEmu takes care of solarized
 endif 
-
-
 
 " Use Leader+e to open NerdTree
 map <Leader>e :NERDTreeToggle<CR>
@@ -141,6 +139,12 @@ if !exists("autocommands_loaded")
 endif
 
 autocmd BufRead *.py nmap <F5> :!python %<CR>
+
+" Use incsearch instead of normal search
+map /  <Plug>(incsearch-forward)
+map ?  <Plug>(incsearch-backward)
+map g/ <Plug>(incsearch-stay)
+
 
 """"""""""""""
 " LATEX SETUP"
