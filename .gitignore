@@ -1,5 +1,6 @@
 # Ignore all
-*
+/*
+/*/
 
 # but these files:
 !.vimrc
