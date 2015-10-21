@@ -58,9 +58,8 @@ inoremap <expr> <M-,> pumvisible() ? '<C-n>' :
   \ '<C-x><C-o><C-n><C-p><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
 
 
-" continously show filename on bottom
-set modeline
-set ls=2
+" Always show statusbar
+set laststatus=2
 
 " copy to clipboard
 set clipboard=unnamed
