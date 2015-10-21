@@ -59,8 +59,7 @@ inoremap <expr> <M-,> pumvisible() ? '<C-n>' :
 
 
 " continously show filename on bottom
-set modeline
-set ls=2
+set laststatus=2
 
 " copy to clipboard
 set clipboard=unnamed

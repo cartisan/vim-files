@@ -1,7 +1,10 @@
 # Ignore all
-*
+/*
+/*/
 
 # but these files:
 !.vimrc
+!_vimrc
 !.vim
+!vimfiles
 !.gitignore
