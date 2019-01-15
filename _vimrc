@@ -6,12 +6,23 @@ call pathogen#helptags()                    " load plugin help files
 
 " syntastic
 "let g:syntastic_check_on_open=1
-let g:syntastic_python_checkers=['flake8']
-let g:syntastic_mode_map = { 'mode': 'active'}
-let g:syntastic_aggregate_errors = 1
-let g:syntastic_enable_signs=1
-let g:syntastic_auto_loc_list=0
+"let g:syntastic_python_checkers=['flake8']
+"let g:syntastic_tex_checkers=['proselint', 'lacheck']
+"let g:syntastic_mode_map = { 'mode': 'active'}
+"let g:syntastic_aggregate_errors = 1
+"let g:syntastic_enable_signs=1
+"let g:syntastic_auto_loc_list=0
+"let g:syntastic_tex_proselint_quiet_messages={'regex' :['misc.annotations']}
 
+" ALE Linter
+let g:ale_enabled = 1
+let g:ale_lint_on_text_changed = 'never'
+let g:ale_sign_error = '>>'
+let g:ale_sign_warning = '--'
+let g:airline#extensions#ale#enabled = 1
+let g:ale_echo_msg_error_str = 'E'
+let g:ale_echo_msg_warning_str = 'W'
+let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 
 " syntax highlighting
 syntax on
@@ -25,6 +36,9 @@ set number
 " Highlight search result and incremental search"
 set hlsearch
 set incsearch
+
+" make autocomplete to ingnore included files for speed
+:set complete-=i
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Text, tab and indent related
@@ -108,7 +122,6 @@ map <A-l> :tabn<CR>
 nnoremap \ :noh<return>
 
 " solarized
-
 if has('gui_running') 
   colorscheme solarized
   set background=light
@@ -143,6 +156,37 @@ map g/ <Plug>(incsearch-stay)
 " Start Tagbar
 nmap <F8> :TagbarToggle<CR>
 
+""""""""""""""
+" easy-motion"
+""""""""""""""
+let g:EasyMotion_do_mapping = 1 " Disable default mappings
+
+" `s{char}{char}{label}`
+" Need one more keystroke, but on average, it may be more comfortable.
+map s <Plug>(easymotion-overwin-f2)
+
+nmap <Leader><Leader>w <Plug>(easymotion-bd-w)
+
+" JK motions: Line motions
+map <Leader>j <Plug>(easymotion-j)
+map <Leader>k <Plug>(easymotion-k)
+
+" configure incsearch to work with fuzzy motion
+function! s:incsearch_config(...) abort
+  return incsearch#util#deepextend(deepcopy({
+  \   'modules': [incsearch#config#easymotion#module({'overwin': 1})],
+  \   'keymap': {
+  \     "\<CR>": '<Over>(easymotion)'
+  \   },
+  \   'is_expr': 0
+  \ }), get(a:, 1, {}))
+endfunction
+
+noremap <silent><expr> /  incsearch#go(<SID>incsearch_config())
+noremap <silent><expr> ?  incsearch#go(<SID>incsearch_config({'command': '?'}))
+noremap <silent><expr> g/ incsearch#go(<SID>incsearch_config({'is_stay': 1}))
+
+
 
 """"""""""""""
 " LATEX SETUP"
@@ -171,8 +215,32 @@ let g:tex_flavor='latex'
 let g:Tex_DefaultTargetFormat = 'pdf'
 let g:Tex_MultipleCompileFormats = 'dvi, pdf'
 
+let g:Tex_CompileRule_pdf = 'pdflatex -interaction=nonstopmode -shell-escape $*'
 "let g:Tex_CompileRule_pdf = 'start latexmk -pdf -pvc $*'
-let g:Tex_CompileRule_pdf = 'pdflatex -interaction=nonstopmode $*'
-"let g:Tex_CompileRule_pdf = 'pdflatex -interaction=nonstopmode $* | bibtex main1-blx.aux | bibtex main2-blx.aux | bibtex main3-blx.aux | bibtex main4-blx.aux | bibtex main5-blx.aux | bibtex main6-blx.aux |bibtex main7-blx.aux | pdflatex -interaction=nonstopmode $* |pdflatex -interaction=nonstopmode $*'
 
-let g:Tex_ViewRule_pdf = 'C:/users/leon/PDFXCview.exe'
+let g:Tex_ViewRule_pdf = 'C:/Users/Leon/AppData/Local/Apps/Evince-2.32.0.145/bin/evince.exe'
+
+" Folding disabled on start
+:let Tex_FoldedSections=""
+:let Tex_FoldedEnvironments=""
+:let Tex_FoldedMisc=""
+
+""""""""""""""
+" Autocommands on saving
+""""""""""""""
+
+" Git Autocommit
+function! AutoCommit()
+  let time = strftime('%c')
+  call system('git add ' . expand('%:t'))
+  call system('git commit -m "' . strftime('%c') . ' updated ' . expand('%:t') . '"')
+endfun
+
+" Autocompile
+function! AutoCompileThesis()
+  call system('pdflatex -interaction=nonstopmode -shell-escape $*')
+endfun
+
+
+"autocmd BufWritePost *.tex call AutoCommit()
+"autocmd BufWritePost *.tex call AutoCompileThesis()
