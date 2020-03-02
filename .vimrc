@@ -123,10 +123,10 @@ nnoremap \ :noh<return>
 map <Leader>e :NERDTreeToggle<CR>
 
 " Fancy python-IDE mode (https://dev.launchpad.net/UltimateVimPythonSetup)
-if !exists("autocommands_loaded")
-  let autocommands_loaded = 1
-  autocmd BufRead,BufNewFile,FileReadPost *.py :source ~/.vim/python
-endif
+"if !exists("autocommands_loaded")
+"  let autocommands_loaded = 1
+"  autocmd BufRead,BufNewFile,FileReadPost *.py :source ~/.vim/python
+"endif
 
 autocmd BufRead *.py nmap <F5> :!python %<CR>
 
@@ -171,3 +171,4 @@ let g:Tex_CompileRule_pdf = 'pdflatex -interaction=nonstopmode $*'
 "let g:Tex_CompileRule_pdf = 'pdflatex -interaction=nonstopmode $* | bibtex main1-blx.aux | bibtex main2-blx.aux | bibtex main3-blx.aux | bibtex main4-blx.aux | bibtex main5-blx.aux | bibtex main6-blx.aux |bibtex main7-blx.aux | pdflatex -interaction=nonstopmode $* |pdflatex -interaction=nonstopmode $*'
 
 "let g:Tex_ViewRule_pdf = 'C:/users/leon/PDFXCview.exe'
+set vb  "silence the console beep
