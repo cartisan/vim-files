@@ -6,12 +6,13 @@ call pathogen#infect()                      " load everyhting else
 call pathogen#helptags()                    " load plugin help files
 
 " syntastic
-let g:syntastic_python_checkers=['flake8']
+let g:syntastic_python_checkers=['pyflakes', 'pep8']
 let g:syntastic_mode_map = { 'mode': 'active'}
 let g:syntastic_aggregate_errors = 1
 let g:syntastic_enable_signs=1
 let g:syntastic_auto_loc_list=0
-
+let g:syntastic_check_on_open = 0
+let g:syntastic_check_on_wq = 1
 
 " syntax highlighting
 syntax on
@@ -46,6 +47,22 @@ set wrap "Wrap lines
 " pep8
 let g:pep8_map='<leader>8'
 
+" up and down goes to chars visually below current one
+ map j gj
+ map k gk
+
+" Escape insert mode using jk/kj (=no moving in normal mode):
+:inoremap jk <Esc>
+:inoremap kj <Esc>
+
+" The C-g u sets an undo point, so undoing will remove one sentence only,
+" not everything since last insert mode
+ inoremap . .<C-g>u
+ inoremap ! !<C-g>u
+ inoremap ? ?<C-g>u
+ inoremap : :<C-g>u
+
+
 " supertab
 au FileType python set omnifunc=pythoncomplete#Complete
 let g:SuperTabDefaultCompletionType = "context"
@@ -69,7 +86,9 @@ let mapleader=","
 
 command! W w !sudo tee % > /dev/null
 
+" backspace works as usual, CTL+L works like DEL, (CTL+H works like BACKSPACE)
 set backspace=indent,eol,start
+imap <c-l> <c-o>x
 
 " ShowMarks
 let showmarks_include = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ" 
@@ -127,6 +146,12 @@ map <Leader>e :NERDTreeToggle<CR>
 "  let autocommands_loaded = 1
 "  autocmd BufRead,BufNewFile,FileReadPost *.py :source ~/.vim/python
 "endif
+
+" python-mode plugin
+let g:pymode_lint = 0
+let g:pymode_rope = 1                                "switch on rope for refactoring and definition search
+let g:pymode_rope_goto_definition_bind = '<leader>k' "shortcut for goto definition commanad
+let g:pymode_rope_goto_definition_cmd = 'e'        "goto definition file is opened in new window
 
 autocmd BufRead *.py nmap <F5> :!python %<CR>
 
